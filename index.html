@@ -6,14 +6,12 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
     
-    <!-- Firebase Kütüphaneleri -->
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
     <div id="ui-layer">
         
-        <!-- ANA MENÜ -->
         <div id="main-menu" class="glass-panel">
             <h1 class="game-title">NEON SNAKE<span class="io">.io</span></h1>
             
@@ -38,7 +36,6 @@
             </div>
         </div>
 
-        <!-- MARKET MENÜSÜ -->
         <div id="market-menu" class="glass-panel hidden">
             <h2 class="game-title" style="font-size: 30px;">🛒 MARKET</h2>
             <p style="color: gold; margin-bottom: 20px;">💰 Jeton: <span id="marketCoins">0</span></p>
@@ -51,7 +48,6 @@
             <button id="closeMarketBtn" class="neon-button" style="margin-top: 20px;">KAPAT</button>
         </div>
 
-        <!-- GLOBAL LİDERLİK TABLOSU MENÜSÜ -->
         <div id="global-leaderboard-menu" class="glass-panel hidden" style="width: 500px;">
             <h2 class="game-title" style="font-size: 26px;">🌍 EFSANELER TABLOSU</h2>
             
@@ -73,7 +69,6 @@
             <button id="closeGlobalLeaderboardBtn" class="neon-button">KAPAT</button>
         </div>
 
-        <!-- ESC (DURAKLATMA) MENÜSÜ -->
         <div id="pause-menu" class="glass-panel hidden">
             <h2 class="game-title" style="font-size: 30px;">OYUN DURAKLATILDI</h2>
             <p style="color: #ff3366; font-size: 14px; margin-bottom: 20px;">(Oyun arkada devam ediyor!)</p>
@@ -81,7 +76,6 @@
             <button id="quitBtn" class="outline-button" style="border-color: #ff3366; color: #ff3366;">OYUNDAN ÇIK</button>
         </div>
 
-        <!-- OYUN SONU EKRANI -->
         <div id="game-over-screen" class="glass-panel hidden">
             <h2 class="game-title" style="font-size: 36px; margin-bottom: 10px;">ÖLDÜN!</h2>
             <div class="stats">
@@ -95,7 +89,6 @@
 
     <canvas id="gameCanvas"></canvas>
     
-    <!-- Socket.io -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="game.js"></script>
 </body>
