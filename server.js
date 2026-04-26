@@ -72,7 +72,6 @@ io.on('connection', (socket) => {
     });
 });
 
-// SUNUCU DÖNGÜSÜ: Saniyede 60 kareye (60 FPS) çıkarıldı!
 setInterval(() => {
     io.emit('updateState', players);
 }, 1000 / 60); 
