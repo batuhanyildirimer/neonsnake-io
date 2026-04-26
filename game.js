@@ -1,4 +1,3 @@
-// --- 1. FIREBASE VERİTABANI KURULUMU ---
 const firebaseConfig = {
     apiKey: "AIzaSyCylbpAxl13W-MGuL32ml_4Tirhx5Lj-2w",
     authDomain: "neonsnakeio-43768.firebaseapp.com",
@@ -10,7 +9,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// Kullanıcının tarayıcısına özel benzersiz bir ID veriyoruz (Sürekli aynı hesabı güncellesin diye)
+
 let myUserId = localStorage.getItem("neonSnakeUserId");
 if (!myUserId) {
     myUserId = "user_" + Math.random().toString(36).substr(2, 9);
@@ -29,7 +28,7 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
-// --- HTML ELEMENTLERİ ---
+
 const mainMenu = document.getElementById("main-menu");
 const gameOverScreen = document.getElementById("game-over-screen");
 const pauseMenu = document.getElementById("pause-menu");
@@ -53,21 +52,18 @@ const earnedCoinsText = document.getElementById("earnedCoins");
 const menuCoinsText = document.getElementById("menuCoins");
 const marketCoinsText = document.getElementById("marketCoins");
 
-// --- EKONOMİ VE KAYIT SİSTEMİ ---
 let myCoins = parseInt(localStorage.getItem("neonSnakeCoins")) || 0;
 let mySelectedColor = localStorage.getItem("neonSnakeColor") || "#00ffcc";
 
 menuCoinsText.innerText = myCoins;
 marketCoinsText.innerText = myCoins;
 
-// Firebase'e sadece Coin bilgisini güncellemek için kısa fonksiyon
 function updateCoinsToDB() {
     db.collection("leaderboard").doc(myUserId).set({
         coins: myCoins
     }, { merge: true }).catch(e => console.log("Veritabanı hatası:", e));
 }
 
-// --- HARİTA VE OYUN AYARLARI ---
 const WORLD_WIDTH = 3000;
 const WORLD_HEIGHT = 3000;
 let gameStarted = false;
@@ -77,14 +73,12 @@ let myId = null;
 let serverPlayers = {};
 let foods = [];
 
-// --- BİZİM YILANIMIZ ---
 let mySnake = {
     x: Math.random() * (WORLD_WIDTH - 200) + 100,
     y: Math.random() * (WORLD_HEIGHT - 200) + 100,
     radius: 15, speed: 3.5, score: 0, history: [], name: "Misafir"
 };
 
-// --- SOCKET.IO ---
 socket.on('init', (data) => {
     myId = data.id; serverPlayers = data.players; foods = data.foods;
 });
@@ -144,7 +138,6 @@ quitBtn.addEventListener("click", () => {
     socket.emit('playerDied');
 });
 
-// --- MENÜ VE MARKET MANTIĞI ---
 marketBtn.addEventListener("click", () => {
     mainMenu.classList.add("hidden"); marketMenu.classList.remove("hidden"); marketCoinsText.innerText = myCoins;
 });
@@ -157,13 +150,13 @@ document.querySelectorAll(".skin-btn").forEach(btn => {
         let price = parseInt(e.target.getAttribute("data-price"));
         let color = e.target.getAttribute("data-color");
         if (myCoins >= price) {
-            myCoins -= price; // Parayı düş
+            myCoins -= price;
             localStorage.setItem("neonSnakeCoins", myCoins);
             menuCoinsText.innerText = myCoins;
             marketCoinsText.innerText = myCoins;
             mySelectedColor = color;
             localStorage.setItem("neonSnakeColor", color);
-            updateCoinsToDB(); // Veritabanındaki cüzdanı da güncelle
+            updateCoinsToDB(); 
             alert("Skin başarıyla satın alındı ve seçildi!");
         } else alert("Bunun için yeterli jetonun yok kanka!");
     });
@@ -171,14 +164,12 @@ document.querySelectorAll(".skin-btn").forEach(btn => {
 
 howToBtn.addEventListener("click", () => document.getElementById("howToPlay").classList.toggle("hidden"));
 
-// --- GLOBAL LİDERLİK TABLOSU MANTIĞI (VERİTABANI ÇEKME) ---
 globalLeaderboardBtn.addEventListener("click", () => {
     mainMenu.classList.add("hidden");
     globalLeaderboardMenu.classList.remove("hidden");
     
     globalLeaderboardBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding-top:20px;">İnternetten Veriler Çekiliyor... ⏳</td></tr>';
 
-    // Firebase'den en yüksek skora göre ilk 10 kişiyi çek
     db.collection("leaderboard").orderBy("maxScore", "desc").limit(10).get()
     .then((querySnapshot) => {
         globalLeaderboardBody.innerHTML = "";
@@ -188,7 +179,6 @@ globalLeaderboardBtn.addEventListener("click", () => {
             let tr = document.createElement("tr");
             tr.style.borderBottom = "1px solid rgba(255,255,255,0.1)";
             
-            // Eğer bu satır "Benim" hesabıma aitse yeşil parlat
             if(doc.id === myUserId) {
                 tr.style.color = "#00ffcc";
                 tr.style.fontWeight = "bold";
@@ -241,13 +231,11 @@ function endGame() {
     finalScoreText.innerText = mySnake.score; 
     earnedCoinsText.innerText = kazanilanJeton;
     
-    // --- VERİTABANINA KAYDETME İŞLEMİ ---
     db.collection("leaderboard").doc(myUserId).get().then((doc) => {
         let currentMaxScore = 0;
         if (doc.exists) {
             currentMaxScore = doc.data().maxScore || 0;
         }
-        // Eğer bu oyundaki skor, önceki rekorundan büyükse rekoru güncelle
         let newMaxScore = Math.max(currentMaxScore, mySnake.score);
         
         db.collection("leaderboard").doc(myUserId).set({
@@ -266,7 +254,6 @@ restartBtn.addEventListener("click", () => {
     gameOverScreen.classList.add("hidden"); mainMenu.classList.remove("hidden");
 });
 
-// --- OYUN DÖNGÜSÜ ---
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
@@ -356,7 +343,6 @@ function gameLoop() {
     
     ctx.restore(); 
 
-    // OYUN İÇİ ARAYÜZ
     ctx.fillStyle = "white"; ctx.textAlign = "left"; ctx.font = "bold 24px 'Poppins', sans-serif";
     ctx.fillText("Skor: " + mySnake.score, 20, 40);
 
