@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Neon Snake .io</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Firebase Kütüphaneleri -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <div id="ui-layer">
+        
+        <!-- ANA MENÜ -->
+        <div id="main-menu" class="glass-panel">
+            <h1 class="game-title">NEON SNAKE<span class="io">.io</span></h1>
+            
+            <div class="stats" style="margin-top: 0;">
+                <p style="font-size: 16px; color: gold;">💰 Jeton: <span id="menuCoins" style="display:inline; font-size: 20px;">0</span></p>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="playerName" placeholder="Takma Adını Gir" maxlength="12" autocomplete="off">
+            </div>
+            
+            <button id="playBtn" class="neon-button">SAVAŞA KATIL</button>
+            <button id="marketBtn" class="outline-button" style="border-color: gold; color: gold;">🛒 Market</button>
+            <button id="globalLeaderboardBtn" class="outline-button" style="border-color: #00ffcc; color: #00ffcc;">🌍 Tüm Zamanlar Sıralaması</button>
+            <button id="howToBtn" class="outline-button">Nasıl Oynanır?</button>
+            
+            <div id="howToPlay" class="hidden">
+                <p>🖱️ Yönlendirmek için fareyi kullan.</p>
+                <p>🍎 Büyümek için parlayan yemleri topla.</p>
+                <p>🐍 Düşmanların kafasını senin gövdene çarpmasını sağla.</p>
+                <p>🏆 En yüksek skoru yap ve listeye adını yazdır!</p>
+            </div>
+        </div>
+
+        <!-- MARKET MENÜSÜ -->
+        <div id="market-menu" class="glass-panel hidden">
+            <h2 class="game-title" style="font-size: 30px;">🛒 MARKET</h2>
+            <p style="color: gold; margin-bottom: 20px;">💰 Jeton: <span id="marketCoins">0</span></p>
+            
+            <button class="outline-button skin-btn" data-color="#00ffcc" data-price="0">🟢 Klasik Neon (Ücretsiz)</button>
+            <button class="outline-button skin-btn" data-color="#ff3366" data-price="500">🔴 Ateş Kırmızısı (500 Jeton)</button>
+            <button class="outline-button skin-btn" data-color="#cc00ff" data-price="1000">🟣 Galaksi Moru (1000 Jeton)</button>
+            <button class="outline-button skin-btn" data-color="#ffaa00" data-price="2500">🟡 Efsanevi Altın (2500 Jeton)</button>
+            
+            <button id="closeMarketBtn" class="neon-button" style="margin-top: 20px;">KAPAT</button>
+        </div>
+
+        <!-- GLOBAL LİDERLİK TABLOSU MENÜSÜ -->
+        <div id="global-leaderboard-menu" class="glass-panel hidden" style="width: 500px;">
+            <h2 class="game-title" style="font-size: 26px;">🌍 EFSANELER TABLOSU</h2>
+            
+            <div style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                <table style="width: 100%; color: white; text-align: left; border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+                            <th style="padding-bottom: 10px;">#</th>
+                            <th style="padding-bottom: 10px;">Oyuncu</th>
+                            <th style="padding-bottom: 10px;">Rekor Skor</th>
+                            <th style="padding-bottom: 10px;">Cüzdan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="globalLeaderboardBody">
+                        <tr><td colspan="4" style="text-align:center; padding-top:20px;">Veriler yükleniyor... ⏳</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <button id="closeGlobalLeaderboardBtn" class="neon-button">KAPAT</button>
+        </div>
+
+        <!-- ESC (DURAKLATMA) MENÜSÜ -->
+        <div id="pause-menu" class="glass-panel hidden">
+            <h2 class="game-title" style="font-size: 30px;">OYUN DURAKLATILDI</h2>
+            <p style="color: #ff3366; font-size: 14px; margin-bottom: 20px;">(Oyun arkada devam ediyor!)</p>
+            <button id="resumeBtn" class="neon-button">DEVAM ET (ESC)</button>
+            <button id="quitBtn" class="outline-button" style="border-color: #ff3366; color: #ff3366;">OYUNDAN ÇIK</button>
+        </div>
+
+        <!-- OYUN SONU EKRANI -->
+        <div id="game-over-screen" class="glass-panel hidden">
+            <h2 class="game-title" style="font-size: 36px; margin-bottom: 10px;">ÖLDÜN!</h2>
+            <div class="stats">
+                <p>Skor: <span id="finalScore">0</span></p>
+                <p style="color: gold; font-size: 18px;">Kazanılan Jeton: <span id="earnedCoins" style="display:inline; font-size: 24px;">0</span></p>
+            </div>
+            <button id="restartBtn" class="neon-button">MENÜYE DÖN</button>
+        </div>
+
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+    
+    <!-- Socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

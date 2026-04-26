@@ -1,0 +1,152 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Modern fontumuzu uyguladık */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #111;
+}
+
+canvas {
+    display: block;
+}
+
+/* UI Katmanı: Canvas'ın üstünde durur */
+#ui-layer {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; /* Tıklamaların oyuna geçmesine izin ver */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+/* Glassmorphism (Buzlu Cam) Efekti */
+.glass-panel {
+    pointer-events: auto; /* Menüye tıklanabilsin */
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(15px); /* Cam bulanıklığı */
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 50px 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(0, 255, 204, 0.15);
+    color: white;
+    width: 400px;
+    transition: all 0.3s ease;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.game-title {
+    font-size: 42px;
+    margin: 0 0 30px 0;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
+}
+.game-title .io {
+    color: #00ffcc;
+}
+
+/* Modern Input */
+input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+    text-align: center;
+    margin-bottom: 20px;
+    transition: all 0.3s;
+}
+
+input[type="text"]:focus {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+}
+
+/* Modern Butonlar */
+button {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    border: none;
+    letter-spacing: 1px;
+}
+
+.neon-button {
+    background: #00ffcc;
+    color: #111;
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
+}
+
+.neon-button:hover {
+    box-shadow: 0 0 30px rgba(0, 255, 204, 0.8);
+    transform: translateY(-2px); /* Üzerine gelince hafif yukarı kalkar */
+}
+
+.outline-button {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.outline-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
+}
+
+/* Nasıl Oynanır Bilgi Kutusu */
+#howToPlay {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #ddd;
+    text-align: left;
+    background: rgba(0,0,0,0.4);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+#howToPlay p { margin: 10px 0; }
+
+.stats { margin: 30px 0; font-size: 20px; }
+.stats span { color: #00ffcc; font-weight: bold; font-size: 28px; display: block; margin-top: 5px; }
+/* Market Butonları İçin Ekstra Stil */
+.skin-btn {
+    text-align: left;
+    padding: 10px 20px;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.skin-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Seçili Skin Vurgusu */
+.skin-btn.selected {
+    background: rgba(0, 255, 204, 0.2);
+    border-color: #00ffcc;
+    color: #00ffcc;
+}
