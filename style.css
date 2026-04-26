@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif; /* Modern fontumuzu uyguladık */
+    font-family: 'Poppins', sans-serif; 
 }
 
 body {
@@ -14,22 +14,20 @@ canvas {
     display: block;
 }
 
-/* UI Katmanı: Canvas'ın üstünde durur */
 #ui-layer {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none; /* Tıklamaların oyuna geçmesine izin ver */
+    pointer-events: none;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10;
 }
 
-/* Glassmorphism (Buzlu Cam) Efekti */
 .glass-panel {
-    pointer-events: auto; /* Menüye tıklanabilsin */
+    pointer-events: auto; 
     background: rgba(20, 20, 20, 0.6);
-    backdrop-filter: blur(15px); /* Cam bulanıklığı */
+    backdrop-filter: blur(15px); 
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 50px 40px;
@@ -56,7 +54,6 @@ canvas {
     color: #00ffcc;
 }
 
-/* Modern Input */
 input[type="text"] {
     width: 100%;
     padding: 15px;
@@ -77,7 +74,6 @@ input[type="text"]:focus {
     box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
 }
 
-/* Modern Butonlar */
 button {
     width: 100%;
     padding: 15px;
@@ -100,7 +96,7 @@ button {
 
 .neon-button:hover {
     box-shadow: 0 0 30px rgba(0, 255, 204, 0.8);
-    transform: translateY(-2px); /* Üzerine gelince hafif yukarı kalkar */
+    transform: translateY(-2px); 
 }
 
 .outline-button {
@@ -114,7 +110,6 @@ button {
     border-color: white;
 }
 
-/* Nasıl Oynanır Bilgi Kutusu */
 #howToPlay {
     margin-top: 20px;
     font-size: 14px;
@@ -130,7 +125,6 @@ button {
 
 .stats { margin: 30px 0; font-size: 20px; }
 .stats span { color: #00ffcc; font-weight: bold; font-size: 28px; display: block; margin-top: 5px; }
-/* Market Butonları İçin Ekstra Stil */
 .skin-btn {
     text-align: left;
     padding: 10px 20px;
@@ -144,7 +138,6 @@ button {
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* Seçili Skin Vurgusu */
 .skin-btn.selected {
     background: rgba(0, 255, 204, 0.2);
     border-color: #00ffcc;
